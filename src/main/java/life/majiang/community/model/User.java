@@ -23,5 +23,7 @@ public class User {
     private Long gmtCreate;
     @TableField("gmt_modified")
     private Long getModified;
+    @TableField("avatar_url")
+    private String avatarUrl;
 
 }

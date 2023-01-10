@@ -37,7 +37,6 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code")String code,
                            @RequestParam(name="state")String state,
-                           HttpServletRequest request,
                            HttpServletResponse response)
     {
         AccessTokenDto accessTokenDto = new AccessTokenDto();
@@ -57,7 +56,7 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGetModified(user.getGmtCreate());
-
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);
             //登录成功，写cookie和session 而在后面因为引入数据库的关系，存进数据库就相当于创建了一个账户，所以不用session
             response.addCookie(new Cookie("token",token));
