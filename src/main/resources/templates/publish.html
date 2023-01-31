@@ -5,10 +5,10 @@
     <title>发布-肥肥社区</title>
     <meta http-equiv="Content-Type" content="text/html ; charset=UTF-8">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/publish.css">
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/publish.css">
+    <script src="j/s/bootstrap.min.js" type="application/javascript"></script>
 
 </head>
 <body>
@@ -19,13 +19,14 @@
             <h2> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
             <hr>
             <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">标题</label>
                     <input type="text" class="form-control" th:value="${title}" id="title" name="title" placeholder="请输入标题">
                 </div>
                 <div class="form-group">
-                    <label for="title">详情</label>
-                    <textarea name="description" th:value="${description}" id="description" class="form-control" cols="30" rows="10"></textarea>
+                    <label for="title">文章详情</label>
+                    <textarea name="description" id="description" th:text="${description}"  class="form-control" cols="30" rows="10"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="title">添加标签</label>

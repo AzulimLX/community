@@ -12,4 +12,6 @@ public interface ArticleService extends IService<Article> {
     PageDto list(Integer id, Integer page, Integer size);
 
     ArticleDto getDtoById(Integer id);
+
+    void CreateOrNot(Article article);
 }

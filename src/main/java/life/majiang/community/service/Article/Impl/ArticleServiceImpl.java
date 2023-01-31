@@ -107,4 +107,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articleDto;
     }
 
+    @Override
+    public void CreateOrNot(Article article) {
+        if (article.getId()==null)
+        {
+            //直接创建
+            article.setGmtCreate(System.currentTimeMillis());
+            article.setGmtModified(article.getGmtModified());
+            articleService.save(article);
+        }
+        else
+        {
+            //更新
+            article.setGmtModified(article.getGmtModified());
+            articleService.updateById(article);
+        }
+    }
+
 }

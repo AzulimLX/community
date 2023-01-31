@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,8 +21,20 @@ import javax.servlet.http.HttpServletRequest;
 public class publishController {
       @Autowired
       private ArticleService articleService;
-      @Autowired
-      private UserService userService;
+
+
+      @GetMapping("/article/publish/{id}")
+      public String edit(@PathVariable(name = "id") Integer id,
+                         Model model)
+      {
+          Article article = articleService.getById(id);
+          model.addAttribute("title",article.getTitle());
+          model.addAttribute("description",article.getDescription());
+          model.addAttribute("tag",article.getTag());
+          model.addAttribute("id",article.getId());
+          return "publish";
+      }
+
 
       @GetMapping("/publish")
       public String publish()
@@ -34,6 +47,7 @@ public class publishController {
       @RequestParam("title") String title,
       @RequestParam("description") String description,
       @RequestParam("tag") String tag,
+      @RequestParam(value = "id" ,required = false) Integer id,
       HttpServletRequest request,
       Model model
       )
@@ -68,9 +82,8 @@ public class publishController {
           article.setDescription(description);
           article.setTag(tag);
           article.setCreator(user.getId());
-          article.setGmtCreate(System.currentTimeMillis());
-          article.setGmtModified(article.getGmtModified());
-          articleService.save(article);
+          article.setId(id);
+          articleService.CreateOrNot(article);
 
           return "redirect:/";
       }
