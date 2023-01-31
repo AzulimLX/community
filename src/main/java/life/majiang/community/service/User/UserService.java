@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 
 public interface UserService extends IService<User>{
     User findByToken(String token);
+
+    void createOrUpdate(User user);
 }
