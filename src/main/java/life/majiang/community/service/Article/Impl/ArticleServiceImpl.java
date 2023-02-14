@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import life.majiang.community.Mapper.ArticleMapper;
 import life.majiang.community.dto.ArticleDto;
 import life.majiang.community.dto.PageDto;
+import life.majiang.community.exception.CEErrorCode;
+import life.majiang.community.exception.CustomizeException;
 import life.majiang.community.model.Article;
 import life.majiang.community.model.User;
 import life.majiang.community.service.Article.ArticleService;
@@ -100,6 +102,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ArticleDto getDtoById(Integer id) {
         Article article = articleService.getById(id);
+        if (article == null)
+        {
+            throw new CustomizeException(CEErrorCode.QUESTION_NOT_FOUND);
+        }
         ArticleDto articleDto = new ArticleDto();
         BeanUtils.copyProperties(article,articleDto);
         User user = userService.getById(article.getCreator());
@@ -120,7 +126,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         {
             //更新
             article.setGmtModified(article.getGmtModified());
-            articleService.updateById(article);
+            boolean b = articleService.updateById(article);
+            if (!b)
+            {
+                throw new CustomizeException(CEErrorCode.QUESTION_NOT_FOUND);
+
+            }
         }
     }
 
