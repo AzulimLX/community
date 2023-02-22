@@ -20,6 +20,8 @@ public class ArticleController {
                           Model model)
     {
         ArticleDto articleById = articleService.getDtoById(id);
+        articleService.incView(id);
+
         model.addAttribute("question",articleById);
         return "article";
     }

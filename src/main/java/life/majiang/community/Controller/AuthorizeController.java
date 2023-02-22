@@ -6,10 +6,8 @@ import life.majiang.community.dto.GithubUser;
 import life.majiang.community.model.User;
 import life.majiang.community.provider.GithubProvider;
 import life.majiang.community.service.User.UserService;
-import life.majiang.community.service.User.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +16,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
+
+/**
+ * 这个是进行登录登出的类
+ */
 
 @Controller
 public class AuthorizeController {
@@ -31,8 +33,6 @@ public class AuthorizeController {
     @Value("${github.redirect.uri}")
     private String RedirectUri;
 
-    @Autowired
-    private UserMapper userMapper;
     @Autowired
     private UserService userService;
 

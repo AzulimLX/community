@@ -14,4 +14,6 @@ public interface ArticleService extends IService<Article> {
     ArticleDto getDtoById(Integer id);
 
     void CreateOrNot(Article article);
+
+    void incView(Integer id);
 }

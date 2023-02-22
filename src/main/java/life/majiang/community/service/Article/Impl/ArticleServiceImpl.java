@@ -135,4 +135,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
     }
 
+    @Override
+    public void incView(Integer id) {
+        Article Ids = articleService.getById(id);
+         Ids.setViewCount(Ids.getViewCount()+1);
+        articleService.updateById(Ids);
+    }
+
 }
