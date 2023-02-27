@@ -2,6 +2,14 @@ function post()
 {
    var questionId = $("#article_id").val();
    var content = $("#comment_content").val();
+
+   if (!content)
+   {
+      alert("不能回复空白内容");
+      return;
+   }
+
+
    $.ajax({
       type:"POST",
       url:"/comment",
@@ -14,7 +22,7 @@ function post()
       success:function (response){
          if (response.code == 200)
          {
-            $("#comment_content").hide();
+            window.location.reload();
          } else
          {
             if (response.code == 2003)

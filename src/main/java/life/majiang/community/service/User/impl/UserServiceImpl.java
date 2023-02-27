@@ -1,14 +1,16 @@
 package life.majiang.community.service.User.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import life.majiang.community.Mapper.UserMapper;
 import life.majiang.community.model.User;
 import life.majiang.community.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xin.altitude.cms.common.util.SpringUtils;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -46,5 +48,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         }
 
+    }
+
+    @Override
+    public List<User> SelectBylist(List<Integer> userIds)
+    {
+        Iterator<Integer> iterator = userIds.iterator();
+        List<User> users = new ArrayList<>();
+        while(iterator.hasNext())
+        {
+            Integer next = iterator.next();
+            User byId = userService.getById(next);
+            if (byId==null)
+            {
+                continue;
+            }
+            users.add(byId);
+        }
+        return users;
     }
 }

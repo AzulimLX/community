@@ -27,9 +27,9 @@ public class CommentController {
         if (user==null) {
             return ResultDto.errorOf(CEErrorCode.NO_LOGIN);
         }
-        if (user.getId()==null)
+        if (commentDto ==null || commentDto.getContent() == null || commentDto.getContent() .equals(""))
         {
-            return ResultDto.errorOf(CEErrorCode.NO_LOGIN);
+            return ResultDto.errorOf(CEErrorCode.CONTENT_IS_EMPTY);
         }
         Comment comment = new Comment();
         comment.setParentId(commentDto.getParentId());
@@ -37,7 +37,7 @@ public class CommentController {
         comment.setType(commentDto.getType());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(System.currentTimeMillis());
-        comment.setCommentator(1);
+        comment.setCommentator(user.getId());
         commentService.insert(comment);
         return ResultDto.okOf();
     }
